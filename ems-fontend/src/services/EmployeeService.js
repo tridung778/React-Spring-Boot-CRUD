@@ -9,3 +9,15 @@ export const listEmloyees = () => {
 export const saveEmployee = (employee) => {
   return axios.post(BASE_URL, employee);
 };
+
+export const getEmployeeById = (id) => {
+  return axios.get(BASE_URL + "/" + id);
+};
+
+export const updateEmployee = (id, employee) => {
+  return axios.put(BASE_URL + "/" + id, employee);
+};
+
+export const deleteEmployee = (id) => {
+  return axios.delete(BASE_URL + "/" + id);
+};
