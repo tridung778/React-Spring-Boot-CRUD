@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { getEmployeeById, saveEmployee, updateEmployee } from "../services/EmployeeService";
+import {
+  getEmployeeById,
+  saveEmployee,
+  updateEmployee,
+} from "../services/EmployeeService";
 import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "./ui/button";
 
 const EmployeeComponent = () => {
   const [firstName, setfirstName] = useState("");
@@ -23,19 +28,19 @@ const EmployeeComponent = () => {
 
   useEffect(() => {
     if (id) {
-      getEmployeeById(id).then((res)=>{
+      getEmployeeById(id).then((res) => {
         setfirstName(res.data.firstName);
         setlastName(res.data.lastName);
         setEmail(res.data.email);
-      })
-    } 
-  },[id])
+      });
+    }
+  }, [id]);
 
   const addEmployee = (e) => {
     e.preventDefault();
     const employee = { firstName, lastName, email };
 
-    if(id){
+    if (id) {
       updateEmployee(id, employee).then((response) => {
         console.log(response.data);
         navgator("/employees");
@@ -94,7 +99,7 @@ const EmployeeComponent = () => {
     <div className="container">
       <div className="row">
         <div className="card col-md-6 offset-md-3 offset-md-3">
-        {pageTitle()}
+          {pageTitle()}
           <div className="card-body">
             <form>
               <div className="form-group mb-2">
@@ -140,9 +145,14 @@ const EmployeeComponent = () => {
                   error.email}
               </div>
 
-              <button className="btn btn-success" onClick={addEmployee}>
-                Add employee
-              </button>
+              <div className="flex justify-center">
+                <Button className="me-40 bg-green-500" onClick={addEmployee}>
+                  Add employee
+                </Button>
+                <Button className="bg-blue-500" onClick={() => navgator("/")}>
+                  Home
+                </Button>
+              </div>
             </form>
           </div>
         </div>

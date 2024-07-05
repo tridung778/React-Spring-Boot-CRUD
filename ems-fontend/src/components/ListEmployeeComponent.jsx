@@ -1,6 +1,16 @@
 import { deleteEmployee, listEmloyees } from "../services/EmployeeService";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const ListEmployeeComponent = () => {
   const [employees, setEmployees] = useState([]);
@@ -42,49 +52,47 @@ const ListEmployeeComponent = () => {
 
   return (
     <div className="container d-flex align-items-center justify-content-center flex-column">
-      <h2>Table Employee</h2>
-      <button className="btn btn-success" onClick={addNewEmployee}>
-        Add new employee
-      </button>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Button onClick={addNewEmployee} variant="default" className="mt-3 bg-lime-400">Add new employee</Button>
+      <Table>
+        <TableCaption>Table Employee.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Id</TableHead>
+            <TableHead>First Name</TableHead>
+            <TableHead>Last Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {employees.map((employee) => (
-            <tr key={employee.id}>
-              <td>{employee.id}</td>
-              <td>{employee.firstName}</td>
-              <td>{employee.lastName}</td>
-              <td>{employee.email}</td>
-              <td>
-                <button
-                  className="btn btn-primary"
+            <TableRow key={employee.id}>
+              <TableCell>{employee.id}</TableCell>
+              <TableCell>{employee.firstName}</TableCell>
+              <TableCell>{employee.lastName}</TableCell>
+              <TableCell>{employee.email}</TableCell>
+              <TableCell>
+                <Button
+                  className="mx-3 bg-blue-600"
                   onClick={() => {
                     editEmployee(employee.id);
                   }}
                 >
                   Edit
-                </button>
-                <button
-                  className="btn btn-danger"
+                </Button>
+                <Button
+                  className="bg-red-600"
                   onClick={() => {
                     handleDeleteEmployee(employee.id);
                   }}
                 >
                   Delete
-                </button>
-              </td>
-            </tr>
+                </Button>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 };
